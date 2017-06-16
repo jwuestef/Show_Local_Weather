@@ -23,12 +23,29 @@ $(document).ready(function() { // when the document is finished loading
 
 
     // validate zipcode field input. If it's not 5 digits or isn't a number, show the error-span, otherwise hide the error-span
-    $("#zipcode").keyup(function() {
+    $("#zipcode").keyup(function(event) {
         var zipcode = Number( $("#zipcode").val() );
         if(zipcode.toString().length != 5 || !regIsNumber(zipcode)) {
             $("#zipError").show("slideup");
         } else {
             $("#zipError").hide("slideup");
+        }
+        if (event.which === 13) {  //submit, same as zipcodesubmit
+            var zipcode = $("#zipcode").val();
+            var link = "http://api.openweathermap.org/data/2.5/forecast/daily?units=imperial&zip=" + zipcode + "&appid=" + API_KEY;
+            $.ajax({
+                type: "GET",
+                url: link
+            }).done(function(data) {   // if ajax call finishes successfully
+                renderWD(data, celScale);
+                $("#toggle").off();
+                $("#toggle").on("click", function() {
+                    celScale = !celScale;
+                    renderWD(data, celScale);
+                });
+            }).fail(function(){   // if the ajax call fails to finish for some reason.
+                alert("The ajax call messed up.")
+            });
         }
     });
 
