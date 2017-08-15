@@ -1,0 +1,2 @@
+# Show Local Weather
+A simple website to display weather data to the user, based on location. It defaults to the user's current location, but the user can input a different zipcode to find weather at that location. The background changes based on today's weather. Originally created as part of [freeCodeCamp](https://www.freecodecamp.com/)'s front end track, and updated during [Eleven Fifty Academy](https://www.elevenfifty.org/)'s Javascript track. 
